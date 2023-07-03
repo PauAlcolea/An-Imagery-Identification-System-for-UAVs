@@ -32,29 +32,6 @@ int res = 1;                                                                    
 float DegreeRangePitch = angle_top_limitPitch - angle_bottom_limitPitch;                            // sets the range (top - bottom), as this will be used in a couple ocassions
 double* lookupArrayPitch = (double*)malloc((res * DegreeRangePitch + 1) * sizeof(double));                 //problem. by having this memory alocation from the beginning, when the range is too great, too much memory is allocated and the arduino cannot handle the math to calculate the PWM equivalent for the degree values. the math simply gives out wrong answers...
 
-int *test_array=(int*)malloc((300)*sizeof(int));
-
-//int DegreeRangeRoll = angle_top_limitRoll - angle_bottom_limitRoll;
-//int lookupArrayRoll[res * DegreeRangeRoll + 1];
-//float mRoll = (1000) / (DegreeRangeRoll);
-//float bRoll = 1000 - ((1000 * angle_bottom_limitRoll) / DegreeRangeRoll);
-//int x = 0;
-//for (float i = angle_bottom_limitRoll; i <= angle_top_limitRoll; i += (1.0 / res), x++)   
-//{
-//  float PWM_equivalentRoll = (mRoll * i) + bRoll;
-//  lookupArrayRoll[x] = PWM_equivalentRoll;
-//}
-//
-//int DegreeRangeYaw = angle_top_limitYaw - angle_bottom_limitYaw;
-//int lookupArrayYaw[res * DegreeRangeYaw + 1];
-//float mYaw = (1000) / (DegreeRangeYaw);
-//float bYaw = 1000 - ((1000 * angle_bottom_limitYaw) / DegreeRangeYaw);
-//int y = 0;
-//for (float i = angle_bottom_limitYaw; i <= angle_top_limitYaw; i += (1.0 / res), y++)  
-//{
-//  float PWM_equivalentYaw = (mYaw * i) + bYaw;
-//  lookupArrayYaw[y] = PWM_equivalentYaw;
-//}
 
 void Callback(const std_msgs::Float64MultiArray& InputNumber)                                     //this function will be called when there is anything published to the topic: "input_topic"                         
 {                                 
@@ -106,14 +83,10 @@ void setup()
   for (double i = angle_bottom_limitPitch; i <= angle_top_limitPitch; i += (1.0 / res))       //make lookup table
   {
     double PWM_equivalentPitch = (mPitch * i) + bPitch;                                            //get the PWM equivalent to each degree that could be possibly inputted, taking into consideration the resolution
-
 //    lookupArrayPitch[j] = PWM_equivalentPitch;                                                    //putting into the array the PWM values, in order from bottom limit to top limit
-
     j++;
     Serial.println(PWM_equivalentPitch);
-    
-    delay(500);
-  }
+      }
 //  free(lookupArrayPitch);
   //Serial.println(" ");
 

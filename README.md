@@ -120,4 +120,3 @@ In this case we are telling the gimbal to go to 0° of Pitch, 0° or Roll and 0�
 
 
 
-

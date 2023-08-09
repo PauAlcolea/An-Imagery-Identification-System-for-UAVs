@@ -23,8 +23,8 @@ ros::NodeHandle nh;
 int angle_bottom_limitPitch = -90;
 int angle_top_limitPitch = 90;
 
-int angle_bottom_limitRoll = -33;
-int angle_top_limitRoll = 33;
+int angle_bottom_limitRoll = -90;
+int angle_top_limitRoll = 90;
 
 int angle_bottom_limitYaw = -90;
 int angle_top_limitYaw = 90;
@@ -39,12 +39,12 @@ void Callback(const geometry_msgs::Point32& InputNumber)                        
 {
   //following if input is in degrees
   float inputtedPitch = InputNumber.x;                                                              //the constrain function takes a number that is too high for the physical limits of the gimbal and brings it down to the actual limit. Those must be set manually
-  int degreePitch = round((constrain(inputtedPitch, -40, 90) - angle_bottom_limitPitch) * res);     //by subtracting the desired angle by the bottom limit and multiplying that by the resolution, you'll get the number where you can the PWM in the array for the desired degrees (inputted)
+  int degreePitch = round((constrain(inputtedPitch, -33, 33) - angle_bottom_limitPitch) * res);     //by subtracting the desired angle by the bottom limit and multiplying that by the resolution, you'll get the number where you can the PWM in the array for the desired degrees (inputted)
   int value_pitch = pgm_read_word(&lookUpTable_pitch[degreePitch]);
   motorPitch.writeMicroseconds(value_pitch);
 
   float inputtedRoll = InputNumber.y;
-  int degreeRoll = round((constrain(inputtedRoll, -33, 33) - angle_bottom_limitRoll) * res);
+  int degreeRoll = round((constrain(inputtedRoll, -40, 90) - angle_bottom_limitRoll) * res);
   int value_roll = pgm_read_word(&lookUpTable_roll[degreeRoll]);
   motorRoll.writeMicroseconds(value_roll);
 
@@ -70,8 +70,8 @@ void setup()
 //  pinMode(9, OUTPUT);
 //  pinMode(6, OUTPUT);
 
-  motorPitch.attach(11);                                                                            //these lines assign a pin to each dimension/axis. The PWM signal will come out of the respective pins, (11, 10, 9 or 6) and will go to the motors in the gimbal
-  motorRoll.attach(10);                                                                             //they use the servo library for arduino
+  motorPitch.attach(10);                                                                            //these lines assign a pin to each dimension/axis. The PWM signal will come out of the respective pins, (11, 10, 9 or 6) and will go to the motors in the gimbal
+  motorRoll.attach(11);                                                                             //they use the servo library for arduino
   motorYaw.attach(9);
   lock.attach(6);
 }

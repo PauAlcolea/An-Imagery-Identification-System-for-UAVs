@@ -20,8 +20,8 @@ ros::NodeHandle nh;
                                                                                                     //if changed here, they must also be changed in lookupTable.py
                                                                                                     //should also change them in the callback function in the contrain function
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int angle_bottom_limitPitch = -90;
-int angle_top_limitPitch = 90;
+int angle_bottom_limitPitch = -30;
+int angle_top_limitPitch = 30;
 
 int angle_bottom_limitRoll = -90;
 int angle_top_limitRoll = 90;
@@ -39,7 +39,7 @@ void Callback(const geometry_msgs::Point32& InputNumber)                        
 {
   //following if input is in degrees
   float inputtedPitch = InputNumber.x;                                                              //the constrain function takes a number that is too high for the physical limits of the gimbal and brings it down to the actual limit. Those must be set manually
-  int degreePitch = round((constrain(inputtedPitch, -33, 33) - angle_bottom_limitPitch) * res);     //by subtracting the desired angle by the bottom limit and multiplying that by the resolution, you'll get the number where you can the PWM in the array for the desired degrees (inputted)
+  int degreePitch = round((constrain(inputtedPitch, -30, 30) - angle_bottom_limitPitch) * res);     //by subtracting the desired angle by the bottom limit and multiplying that by the resolution, you'll get the number where you can the PWM in the array for the desired degrees (inputted)
   int value_pitch = pgm_read_word(&lookUpTable_pitch[degreePitch]);
   motorPitch.writeMicroseconds(value_pitch);
 
@@ -50,7 +50,7 @@ void Callback(const geometry_msgs::Point32& InputNumber)                        
 
 
   float inputtedYaw = InputNumber.z;
-  int degreeYaw = round((constrain(inputtedYaw, -30, 30) - angle_bottom_limitYaw) * res);
+  int degreeYaw = round((constrain(inputtedYaw, -40, 30) - angle_bottom_limitYaw) * res);
   int value_yaw = pgm_read_word(&lookUpTable_yaw[degreeYaw]);
   motorYaw.writeMicroseconds(value_yaw);
 }

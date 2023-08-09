@@ -4,8 +4,8 @@ import rospy                                                                    
 import array
 import math
 
-angle_bottom_limitPitch = -33                                                           # These values are the limits for the gimbal, they can be found on the gimbal configurator program when connected to the STorM32 with a mini USB cable
-angle_top_limitPitch = 33                                                               # they should be changed so that there is no harm done to the motors
+angle_bottom_limitPitch = -30                                                           # These values are the limits for the gimbal, they can be found on the gimbal configurator program when connected to the STorM32 with a mini USB cable
+angle_top_limitPitch = 30                                                               # they should be changed so that there is no harm done to the motors
 
 angle_bottom_limitRoll = -90                                                            #it is also important to remember to change the values on the C++ program "floatROS_gimbal_control" for the Arduino if they are changed in this program
 angle_top_limitRoll = 90

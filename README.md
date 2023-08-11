@@ -111,7 +111,10 @@ In this case we are telling the gimbal to go to 0° of Pitch, 0° or Roll and 0�
 &nbsp;  
 &nbsp;  
 ## 5. Mechanical <a name="mech"></a>
+The gimbal attatches to the drone with 3D printed parts that can be found in the Solidworks_files folder in this repo. 
+&nbsp;
 
+The gimbal is also connected to the arduino through 4 cables, one for each of the three motors, which pass the PWM signals from the arduino to the controller on the gimbal, and one for ground. The arduino program is set so that the pins used are the pins 11, 10 and 9. With the camera in the default position, pitch is assigned to pin 11, roll to pin 10, and yaw to pin 9. Because we shifted the camera by 90°, the connections are now: roll assigned to pin 11, pith assigned to pin 10 and yaw assigned to pin 9. The connection did not change mechanically from when we had the camera in the default position, but the script was changed to account for the swap. The new roll motor is the same as the old pitch motor, and vice versa.
 
 
 
